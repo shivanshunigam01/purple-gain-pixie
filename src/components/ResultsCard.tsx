@@ -76,7 +76,7 @@ export function ResultsCard({ results }: ResultsCardProps) {
           </div>
         </div>
 
-        <Separator className="my-4 bg-white/20" />
+        <Separator className="my-4" />
 
         {/* Small summary block */}
         <div className="mt-2 space-y-2 text-xs text-results-muted">
