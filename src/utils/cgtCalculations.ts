@@ -40,34 +40,58 @@ export type CGTResults = {
 
   taxWithoutGain: number;
   taxWithGain: number;
-  cgtPayable: number;
-  medicareLevy: number;
-  totalTaxLiability: number;
-}
 
-// Australian tax brackets for 2025-26 (residents)
-const TAX_BRACKETS = [
-  { min: 0, max: 18200, rate: 0, base: 0 },
-  { min: 18201, max: 45000, rate: 0.16, base: 0 },
-  { min: 45001, max: 135000, rate: 0.30, base: 4288 },
-  { min: 135001, max: 190000, rate: 0.37, base: 31288 },
-  { min: 190001, max: Infinity, rate: 0.45, base: 51638 }
-];
+  // rows to display
+  medicareLevy: number; // 2% of Income Tax on Gain (per spec)
+  cgtPayable: number; // Income Tax on Gain (tax delta)
+  totalTaxLiability: number; // income tax on gain + levy on gain
+};
 
-export function calculateIncomeTax(taxableIncome: number): number {
-  if (taxableIncome <= 0) return 0;
+// ----- helpers -----
+const clamp2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 
-  const bracket = TAX_BRACKETS.find(b => taxableIncome >= b.min && taxableIncome <= b.max);
-  if (!bracket) return 0;
+// Currency formatters
+export const formatCurrency2 = (n: number) =>
+  n.toLocaleString("en-AU", {
+    style: "currency",
+    currency: "AUD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
-  return bracket.base + (taxableIncome - bracket.min + 1) * bracket.rate;
-}
+export const formatCurrency0 = (n: number) =>
+  n.toLocaleString("en-AU", {
+    style: "currency",
+    currency: "AUD",
+    maximumFractionDigits: 0,
+  });
 
-export function calculateMedicareLevy(taxableIncome: number): number {
-  // Medicare levy is 2% of taxable income (simplified)
-  // In reality, there are thresholds and exemptions
-  if (taxableIncome <= 23226) return 0; // Low income threshold
-  return taxableIncome * 0.02;
+// Keep legacy name for rows (2dp like your mock)
+export const formatCurrency = formatCurrency2;
+
+function stage3Tax(income: number): number {
+  // Stage-3 bands:
+  // 0–18,200: 0%
+  // 18,201–45,000: 16%
+  // 45,001–135,000: 30%
+  // 135,001–190,000: 37%
+  // 190,001+: 45%
+  if (income <= 18200) return 0;
+  let tax = 0;
+
+  const band = (from: number, to: number, rate: number) => {
+    if (income <= from) return 0;
+    const upper = Math.min(income, to);
+    const span = Math.max(0, upper - from);
+    return span * rate;
+  };
+
+  tax += band(18200, 45000, 0.16);
+  tax += band(45000, 135000, 0.3);
+  tax += band(135000, 190000, 0.37);
+  tax += band(190000, Number.POSITIVE_INFINITY, 0.45);
+
+  return clamp2(tax);
 }
 
 // ----- main -----
