@@ -57,13 +57,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Calculator specific colors
-        "calculator-body": "hsl(var(--calculator-body))",
-        "calculator-card": "hsl(var(--calculator-card))",
-        "results-background": "hsl(var(--results-background))",
-        "results-highlight": "hsl(var(--results-highlight))",
-        "results-text": "hsl(var(--results-text))",
-        "results-muted": "hsl(var(--results-muted))",
       },
       borderRadius: {
         lg: "var(--radius)",
