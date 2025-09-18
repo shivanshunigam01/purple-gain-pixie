@@ -57,8 +57,9 @@ export function CGTCalculator() {
                 Capital Gains Tax Calculator
               </h1>
               <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-1 max-w-2xl">
-                Estimate CGT based on property sale price minus purchase,
-                maintenance, and selling expenses.
+                Our calculator provides an estimate of the CGT to be paid based
+                on the sale price of the property less the expenses that come
+                with purchasing, maintaining, and selling the property.
               </p>
             </div>
             <ThemeToggle />
