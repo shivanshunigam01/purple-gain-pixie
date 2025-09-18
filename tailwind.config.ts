@@ -27,6 +27,8 @@ export default {
         primary: {
           DEFAULT: "#0A2A66",
           foreground: "hsl(var(--primary-foreground))",
+          600: "hsl(var(--primary-600))",
+          700: "hsl(var(--primary-700))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -62,13 +64,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Calculator specific colors
-        "calculator-body": "hsl(var(--calculator-body))",
-        "calculator-card": "hsl(var(--calculator-card))",
-        "results-background": "hsl(var(--results-background))",
-        "results-highlight": "hsl(var(--results-highlight))",
-        "results-text": "hsl(var(--results-text))",
-        "results-muted": "hsl(var(--results-muted))",
       },
       borderRadius: {
         lg: "var(--radius)",

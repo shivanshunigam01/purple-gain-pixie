@@ -47,77 +47,82 @@ export function CGTCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors">
+    <div className="min-h-screen bg-white dark:bg-[#141B24] transition-colors">
       {/* Header */}
-      <div className="border-b bg-card">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1
-                className="text-3xl font-bold uppercase tracking-wide 
-                text-[#0A2A66] dark:text-[#AFCBFF] mb-2"
-              >
+      <header className="bg-gray-50 dark:bg-[#141B24] border-b border-gray-200 dark:border-gray-700 transition-colors">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-5">
+          <div className="flex items-center justify-between gap-4">
+            <div className="min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
                 Capital Gains Tax Calculator
               </h1>
-              <p className="text-sm text-muted-foreground max-w-2xl">
-                Our calculator provides an estimate of the CGT to be paid based
-                on the sale price of the property less the expenses that come
-                with purchasing, maintaining, and selling the property.
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-1 max-w-2xl">
+                Estimate CGT based on property sale price minus purchase,
+                maintenance, and selling expenses.
               </p>
             </div>
             <ThemeToggle />
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Calculator Form */}
-          <Card className="bg-white dark:bg-gray-900 shadow-lg border border-gray-200 dark:border-gray-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-[#0A2A66] dark:text-[#AFCBFF]">
-                  Capital Gains Tax Calculator
-                </h2>
-                <Button
-                  variant="outline"
-                  onClick={handleReset}
-                  className="border-[#0A2A66] text-[#0A2A66] hover:bg-[#0A2A66] hover:text-white
-                             dark:border-[#AFCBFF] dark:text-[#AFCBFF] dark:hover:bg-[#AFCBFF] dark:hover:text-gray-900"
-                >
-                  Reset
-                </Button>
-              </div>
-
-              <CalculatorForm inputs={inputs} onChange={handleInputChange} />
-            </CardContent>
-          </Card>
+      {/* Main */}
+      <main className="container mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-8 max-w-[1200px]">
+          {/* Form */}
+          <div className="order-1 lg:order-1">
+            <Card className="bg-white dark:bg-[#141B24] border border-gray-200 dark:border-gray-700 shadow-sm transition-colors">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Enter Your Details
+                  </h2>
+                  <Button
+                    variant="outline"
+                    onClick={handleReset}
+                    className="border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#1E2A38]"
+                  >
+                    Reset
+                  </Button>
+                </div>
+                <CalculatorForm inputs={inputs} onChange={handleInputChange} />
+              </CardContent>
+            </Card>
+          </div>
 
           {/* Results */}
-          <div className="lg:sticky lg:top-8">
+          <div className="order-2 lg:order-2">
             <ResultsCard results={results} />
           </div>
         </div>
 
         {/* Disclaimer */}
-        <Card className="mt-12 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <Card className="mt-12 bg-white dark:bg-[#141B24] border border-gray-200 dark:border-gray-700 shadow-sm transition-colors">
           <CardContent className="p-6">
             <div className="text-center">
-              <h3 className="font-semibold mb-2 text-[#0A2A66] dark:text-[#AFCBFF]">
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">
                 Important Disclaimer
               </h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
                 This calculator provides estimates only and should not be used
-                as the sole basis for financial decisions. The calculations are
+                as the sole basis for financial decisions. Calculations are
                 simplified and may not account for all tax considerations.
-                Please consult with a qualified tax professional or accountant
-                for comprehensive tax advice.
+                Please consult a qualified tax professional for advice.
               </p>
             </div>
           </CardContent>
         </Card>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#141B24] mt-10 transition-colors">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-600 dark:text-gray-400">
+          <p>
+            © 2025 CGT Calculator. Estimates only. Always confirm with ATO
+            guidance.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

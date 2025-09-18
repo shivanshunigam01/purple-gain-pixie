@@ -7,10 +7,16 @@ import {
   formatCurrency2,
   type CGTResults,
 } from "@/utils/cgtCalculations";
+import { Button } from "./ui/button";
 
 interface ResultsCardProps {
   results: CGTResults;
 }
+
+
+
+const DISCOVERY_URL =
+  "https://calendly.com/nanakaccountant/discovery-meeting?back=1&month=2025-09";
 
 export function ResultsCard({ results }: ResultsCardProps) {
   return (
@@ -101,6 +107,28 @@ export function ResultsCard({ results }: ResultsCardProps) {
             </span>
           </div>
         </div>
+        {/* CTA Card */}
+<Card className="rounded-2xl shadow-md overflow-hidden bg-[#0A2A66] dark:bg-[#0B1E46]">
+  <CardContent className="p-4 sm:p-6 text-center">
+    <Button
+      asChild
+      className="w-full h-auto min-h-[44px] inline-flex items-center justify-center 
+        px-4 sm:px-6 md:px-8 py-3 sm:py-4 
+        text-white font-semibold 
+        text-base sm:text-lg md:text-xl leading-snug 
+        whitespace-normal break-words text-pretty 
+        rounded-lg sm:rounded-xl md:rounded-full 
+        bg-[#0A2A66] dark:bg-[#0B1E46] shadow-none
+        hover:bg-[#0A2A66] dark:hover:bg-[#0B1E46]"
+      aria-label="Book Your Free 15 Minute Consultation"
+    >
+      <a href={DISCOVERY_URL} target="_blank" rel="noopener noreferrer">
+        Book Your Free 15 Minute Consultation
+      </a>
+    </Button>
+  </CardContent>
+</Card>
+
       </CardContent>
     </Card>
   );

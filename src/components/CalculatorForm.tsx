@@ -31,7 +31,7 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
   const updateInputs = (updates: Partial<CGTInputs>) =>
     onChange({ ...inputs, ...updates });
 
-  // Number formatting helpers (typing = raw, blur = formatted)
+  // Number formatting helpers
   const nf = useMemo(
     () => new Intl.NumberFormat("en-AU", { maximumFractionDigits: 2 }),
     []
@@ -58,12 +58,10 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
     );
   }, [inputs.annualTaxableIncome, inputs.unappliedLossesAmount]);
 
-  const clearOnFocus =
-    (val: string, setter: (s: string) => void) =>
-    (e: React.FocusEvent<HTMLInputElement>) => {
-      setter(stripNonNumeric(val));
-      if (val === "0") setter("");
-    };
+  const clearOnFocus = (val: string, setter: (s: string) => void) => () => {
+    setter(stripNonNumeric(val));
+    if (val === "0") setter("");
+  };
 
   const formatOnBlur =
     (setter: (s: string) => void, commit: (n: number) => void) =>
@@ -108,7 +106,7 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
   return (
     <TooltipProvider>
       <div className="space-y-6">
-        <Card className="bg-card border border-border/60 shadow-sm">
+        <Card className="bg-card border border-border/60 shadow-sm dark:bg-[#141B24]">
           <CardContent className="p-6 space-y-6">
             {/* Row: Annual Taxable Income | Income Year */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
