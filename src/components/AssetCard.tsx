@@ -22,7 +22,7 @@ export function AssetCard({
   onRemove,
   canRemove,
 }: AssetCardProps) {
-  // Local UI strings so fields can be empty and won’t force 0
+  // Number formatting helpers
   const nf = useMemo(
     () => new Intl.NumberFormat("en-AU", { maximumFractionDigits: 2 }),
     []
@@ -32,6 +32,7 @@ export function AssetCard({
   const sanitize = (raw: string) =>
     stripNonNumeric(raw).replace(/^0+(?=\d)/, "");
 
+  // Local UI strings so fields can be empty without showing 0
   const [purchaseStr, setPurchaseStr] = useState(
     asset.purchasePrice ? String(asset.purchasePrice) : ""
   );
@@ -48,12 +49,10 @@ export function AssetCard({
     setSaleStr(asset.salePrice ? String(asset.salePrice) : "");
   }, [asset.purchasePrice, asset.additionalCosts, asset.salePrice]);
 
-  const clearOnFocus =
-    (val: string, setter: (s: string) => void) =>
-    (e: React.FocusEvent<HTMLInputElement>) => {
-      setter(stripNonNumeric(val));
-      if (val === "0") setter("");
-    };
+  const clearOnFocus = (val: string, setter: (s: string) => void) => () => {
+    setter(stripNonNumeric(val));
+    if (val === "0") setter("");
+  };
 
   const formatOnBlur =
     (setter: (s: string) => void, commit: (n: number) => void) =>
@@ -70,7 +69,7 @@ export function AssetCard({
     };
 
   return (
-    <Card className="border-2 border-muted bg-card">
+    <Card className="border-2 border-muted bg-card dark:bg-[#141B24]">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg">{`Asset ${assetNumber}`}</CardTitle>

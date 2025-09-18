@@ -109,59 +109,59 @@ export function CalculatorForm({ inputs, onChange }: CalculatorFormProps) {
         <Card className="bg-card border border-border/60 shadow-sm dark:bg-[#141B24]">
           <CardContent className="p-6 space-y-6">
             {/* Row: Annual Taxable Income | Income Year */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Annual taxable income */}
-              <div className="space-y-2">
-                <Label htmlFor="income" className="text-sm font-medium">
-                  Annual taxable income (before tax)
-                </Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                    $
-                  </span>
-                  <Input
-                    id="income"
-                    type="text"
-                    inputMode="decimal"
-                    value={incomeStr}
-                    onFocus={clearOnFocus(incomeStr, setIncomeStr)}
-                    onChange={(e) => {
-                      const v = sanitize(e.target.value);
-                      setIncomeStr(v);
-                      updateInputs({
-                        annualTaxableIncome: v === "" ? 0 : Number(v),
-                      });
-                    }}
-                    onBlur={formatOnBlur(setIncomeStr, (n) =>
-                      updateInputs({ annualTaxableIncome: n })
-                    )}
-                    className="pl-8 h-11 rounded-lg"
-                    placeholder="90,000"
-                  />
-                </div>
-              </div>
-
-              {/* Income year */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Income year</Label>
-                <Select
-                  value={inputs.incomeYear}
-                  onValueChange={(v) =>
+            {/* Annual taxable income */}
+            <div className="space-y-2">
+              <Label htmlFor="income" className="text-sm font-medium">
+                Annual taxable income (before tax)
+              </Label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                  $
+                </span>
+                <Input
+                  id="income"
+                  type="text"
+                  inputMode="decimal"
+                  value={incomeStr}
+                  onFocus={clearOnFocus(incomeStr, setIncomeStr)}
+                  onChange={(e) => {
+                    const v = sanitize(e.target.value);
+                    setIncomeStr(v);
                     updateInputs({
-                      incomeYear: v as CGTInputs["incomeYear"],
-                    })
-                  }
-                >
-                  <SelectTrigger className="h-11 rounded-lg">
-                    <SelectValue placeholder="Select year" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="2025-2026">2025-2026</SelectItem>
-                    <SelectItem value="2024-2025">2024-2025</SelectItem>
-                    <SelectItem value="2023-2024">2023-2024</SelectItem>
-                  </SelectContent>
-                </Select>
+                      annualTaxableIncome: v === "" ? 0 : Number(v),
+                    });
+                  }}
+                  onBlur={formatOnBlur(setIncomeStr, (n) =>
+                    updateInputs({ annualTaxableIncome: n })
+                  )}
+                  className="pl-8 h-11 rounded-lg"
+                  placeholder="90,000"
+                />
               </div>
+            </div>
+
+            {/* Income year */}
+            <div className="space-y-2">
+              <Label htmlFor="incomeYear" className="text-sm font-medium">
+                Income year
+              </Label>
+              <Select
+                value={inputs.incomeYear}
+                onValueChange={(v) =>
+                  updateInputs({
+                    incomeYear: v as CGTInputs["incomeYear"],
+                  })
+                }
+              >
+                <SelectTrigger className="h-11 rounded-lg pl-3">
+                  <SelectValue placeholder="Select year" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="2025-2026">2025-2026</SelectItem>
+                  <SelectItem value="2024-2025">2024-2025</SelectItem>
+                  <SelectItem value="2023-2024">2023-2024</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Any unapplied net capital losses from previous years? */}
